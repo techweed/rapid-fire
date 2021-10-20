@@ -20,7 +20,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   > p {
-    color: #fff;
+    color: black;
   }
   .score {
     color: #fff;

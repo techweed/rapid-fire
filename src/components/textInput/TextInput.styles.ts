@@ -1,14 +1,18 @@
 import styled from "styled-components";
 
-export const InputWrapper = styled.div<any>`
+type InputWrapperProps = {
+  error: boolean;
+};
+
+export const InputWrapper = styled.div<InputWrapperProps>`
   input {
-    border: 0.5px solid grey;
+    border: ${({ error }) => (error ? "0.5px solid red" : " 0.5px solid grey")};
     border-radius: 5px;
     overflow: hidden;
     width: 90%;
     height: 40px;
     padding: 5px;
-    margin: 40px 0px;
+    margin: 30px 0px;
     outline: none;
   }
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { fetchQuizQuestions } from "./services/https";
 import Card from "./components/card/Card";
 import { GlobalStyle, Wrapper } from "./App.styles";
@@ -10,6 +10,7 @@ export type QuestionObject = {
 };
 
 const App: React.FC = () => {
+  const questionNumber = useRef(0);
   const [loading, setLoading] = useState(false);
   //single element array for now
   const [questions, setQuestions] = useState<QuestionObject[]>([]);
@@ -22,23 +23,33 @@ const App: React.FC = () => {
   //User answer input
   const [userAnswer, setUserAnswer] = useState("");
 
+  const [incorrectAnswer, setIncorrectAnswer] = useState(false);
+
   const startTrivia = async () => {
+    questionNumber.current += 1;
     setLoading(true);
     setGameOver(false);
     const newQuestions = await fetchQuizQuestions();
     setQuestions(newQuestions);
-    setScore(0);
-    setNumber(0);
     setLoading(false);
+    setUserAnswer("");
+    setIncorrectAnswer(false);
   };
 
   const checkAnswer = (e: any) => {
-    if (!gameOver) {
-      const answer = e.currentTarget.value;
-      const correct = questions[number].answer === answer;
-      // Increment score
-      if (correct) setScore((prev) => prev + 1);
+    // Increment score
+    if (questions[number].answer.toLowerCase() === userAnswer.toLowerCase()) {
+      setScore((prev) => prev + 1);
+      startTrivia();
+    } else {
+      setIncorrectAnswer(true);
     }
+  };
+  const skipAnswer = () => {
+    startTrivia();
+  };
+  const stopQuiz = () => {
+    setGameOver(true);
   };
 
   return (
@@ -49,19 +60,22 @@ const App: React.FC = () => {
         {gameOver ? (
           <Button
             content="Start"
+            name="start"
             click={startTrivia}
             disabled={false}
             className="centerButton"
           />
         ) : null}
-        {!gameOver ? <p className="score">Score: {score}</p> : null}
         {loading ? <p>Loading Questions...</p> : null}
         {!loading && !gameOver && (
           <Card
-            questionNumber={number + 1}
+            questionNumber={questionNumber.current}
             question={questions[0].question}
             userAnswer={userAnswer}
             submit={checkAnswer}
+            skip={skipAnswer}
+            stop={stopQuiz}
+            incorrectAnswer={incorrectAnswer}
             onInputChange={(userAnswer) => setUserAnswer(userAnswer)}
           />
         )}
