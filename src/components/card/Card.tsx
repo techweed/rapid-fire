@@ -2,15 +2,17 @@ import React from "react";
 import Button from "../button/Button";
 import TextInput from "../textInput/TextInput";
 import { Wrapper } from "./Card.styles";
+import iconClose from "../../assets/icons/close.svg";
+import iconSkip from "../../assets/icons/skip.svg";
 
 type Props = {
   question: string;
   incorrectAnswer: boolean;
-  submit: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  submit: () => void;
   skip: () => void;
   stop: () => void;
   userAnswer: string;
-  questionNumber: number;
+  score: number;
   onInputChange: (val: string) => void;
 };
 
@@ -21,12 +23,12 @@ const Card: React.FC<Props> = ({
   skip,
   stop,
   userAnswer,
-  questionNumber,
+  score,
   onInputChange,
 }) => (
   <>
     <Wrapper>
-      <p className="number">Question: {questionNumber}</p>
+      <p className="number">Score: {score}</p>
       <p dangerouslySetInnerHTML={{ __html: question }} />
       <TextInput
         value={userAnswer}
@@ -37,6 +39,7 @@ const Card: React.FC<Props> = ({
       <Button
         content="Submit"
         name="submit"
+        icon={null}
         click={submit}
         disabled={userAnswer.trim().length === 0}
         className=""
@@ -45,6 +48,7 @@ const Card: React.FC<Props> = ({
     <Button
       content="Skip"
       name="skip"
+      icon={iconSkip}
       click={skip}
       disabled={false}
       className="bottomLeftButton"
@@ -53,6 +57,7 @@ const Card: React.FC<Props> = ({
     <Button
       content="Stop"
       name="stop"
+      icon={iconClose}
       click={stop}
       disabled={false}
       className="bottomRightButton"

@@ -11,13 +11,10 @@ export type QuestionObject = {
 
 const App: React.FC = () => {
   const questionNumber = useRef(0);
+  const score = useRef(0);
   const [loading, setLoading] = useState(false);
   //single element array for now
   const [questions, setQuestions] = useState<QuestionObject[]>([]);
-  //Question Number
-  const [number, setNumber] = useState(0);
-  //Score so far
-  const [score, setScore] = useState(0);
   //Stop game
   const [gameOver, setGameOver] = useState(true);
   //User answer input
@@ -36,10 +33,12 @@ const App: React.FC = () => {
     setIncorrectAnswer(false);
   };
 
-  const checkAnswer = (e: any) => {
-    // Increment score
-    if (questions[number].answer.toLowerCase() === userAnswer.toLowerCase()) {
-      setScore((prev) => prev + 1);
+  const checkAnswer = () => {
+    if (
+      questions[0].answer.toLowerCase().replace(/[^A-Za-z0-9]/g, "") ===
+      userAnswer.toLowerCase().replace(/[^A-Za-z0-9]/g, "")
+    ) {
+      score.current += 1;
       startTrivia();
     } else {
       setIncorrectAnswer(true);
@@ -56,11 +55,12 @@ const App: React.FC = () => {
     <>
       <GlobalStyle />
       <Wrapper>
-        <h1>RAPID FIRE</h1>
+        <h1>RAPID FIRE {!gameOver && questionNumber.current}</h1>
         {gameOver ? (
           <Button
             content="Start"
             name="start"
+            icon={null}
             click={startTrivia}
             disabled={false}
             className="centerButton"
@@ -69,7 +69,7 @@ const App: React.FC = () => {
         {loading ? <p>Loading Questions...</p> : null}
         {!loading && !gameOver && (
           <Card
-            questionNumber={questionNumber.current}
+            score={score.current}
             question={questions[0].question}
             userAnswer={userAnswer}
             submit={checkAnswer}

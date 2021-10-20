@@ -22,11 +22,7 @@ export const Wrapper = styled.div`
   > p {
     color: black;
   }
-  .score {
-    color: #fff;
-    font-size: 2rem;
-    margin: 0;
-  }
+
   h1 {
     font-family: "Press Start 2p", cursive;
     background-image: linear-gradient(90deg, #56ffa4, #59bc86);
@@ -44,19 +40,5 @@ export const Wrapper = styled.div`
     @media (max-width: 768px) {
       font-size: 40px;
     }
-  }
-  .start,
-  .next {
-    cursor: pointer;
-    background: linear-gradient(180deg, #ffffff, #ffcc91);
-    border: 2px solid #d38558;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    height: 40px;
-    margin: 20px 0;
-    padding: 0 40px;
-  }
-  .start {
-    max-width: 200px;
   }
 `;

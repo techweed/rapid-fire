@@ -4,7 +4,8 @@ import { ButtonWrapper } from "./Button.styles";
 type Props = {
   content: string;
   name: string;
-  click: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  icon: any;
+  click: () => void;
   disabled: boolean;
   className: string;
 };
@@ -12,18 +13,21 @@ type Props = {
 const Button: React.FC<Props> = ({
   content,
   name,
+  icon,
   click,
   disabled,
   className,
 }) => (
-  <ButtonWrapper disabled={disabled}>
+  <ButtonWrapper disabled={disabled} icon={icon}>
     <button
       disabled={disabled}
       onClick={click}
       className={className}
       name={name}
     >
-      <span dangerouslySetInnerHTML={{ __html: content }} />
+      {icon ? <img className="icon" src={icon} alt={name} /> : null}
+
+      <span className="text" dangerouslySetInnerHTML={{ __html: content }} />
     </button>
   </ButtonWrapper>
 );

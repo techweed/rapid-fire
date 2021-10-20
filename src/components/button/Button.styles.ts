@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 type ButtonWrapperProps = {
   disabled: boolean;
+  icon: any;
 };
 
 export const ButtonWrapper = styled.div<ButtonWrapperProps>`
@@ -14,7 +15,7 @@ export const ButtonWrapper = styled.div<ButtonWrapperProps>`
     user-select: none;
     font-size: 1rem;
     font-family: "Press Start 2p", cursive;
-    width: 120px;
+    width: auto;
     height: 55px;
     margin: 5px 0;
     background: ${({ disabled }) =>
@@ -23,7 +24,19 @@ export const ButtonWrapper = styled.div<ButtonWrapperProps>`
     border-radius: 10px;
     color: #fff;
     text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+    .icon {
+      display: inline;
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+    .text {
+      display: ${({ icon }) => (icon ? "none" : "inline")};
+      @media (min-width: 768px) {
+        display: inline;
+      }
+    }
     @media (min-width: 768px) {
       width: 160px;
       height: 60px;
