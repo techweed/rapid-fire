@@ -34,9 +34,9 @@ export const Wrapper = styled.div`
     -moz-background-clip: text;
     -moz-text-fill-color: transparent;
     filter: drop-shadow(2px 2px #0085a3);
-    font-size: 70px;
+    font-size: 50px;
     text-align: center;
-    margin: 20px;
+    margin: 40px 0px;
     @media (max-width: 768px) {
       font-size: 30px;
     }

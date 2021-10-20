@@ -21,6 +21,7 @@ const App: React.FC = () => {
   const [userAnswer, setUserAnswer] = useState("");
   const [answerStatus, setAnswerStatus] = useState("");
 
+  //initialize states and fetching question
   const startTrivia = async () => {
     questionNumber.current += 1;
     setLoading(true);
@@ -32,6 +33,7 @@ const App: React.FC = () => {
     setAnswerStatus("");
   };
 
+  // Function on submit handles correct and incorrect answers
   const checkAnswer = () => {
     if (
       questions[0].answer.toLowerCase().replace(/[^A-Za-z0-9]/g, "") ===
@@ -47,12 +49,14 @@ const App: React.FC = () => {
       setAnswerStatus("Incorrect");
       setTimeout(function () {
         setAnswerStatus("");
-      }, 5000);
+      }, 4000);
     }
   };
+  // skip without answering
   const skipAnswer = () => {
     startTrivia();
   };
+  //go back to home
   const stopQuiz = () => {
     setGameOver(true);
   };

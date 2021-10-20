@@ -41,7 +41,7 @@ const Card: React.FC<Props> = ({
         name="submit"
         icon={null}
         click={submit}
-        // validation
+        // validation: button will be active only after any text is entered
         disabled={userAnswer.trim().length === 0}
         className=""
       />
