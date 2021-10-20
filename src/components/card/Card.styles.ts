@@ -14,6 +14,7 @@ export const Wrapper = styled.div`
   .number {
     font-family: "Press Start 2p", cursive;
     text-align: right;
+    font-size: 10px;
   }
   @media (min-width: 768px) {
     box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.25);
