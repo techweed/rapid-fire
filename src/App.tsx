@@ -19,8 +19,7 @@ const App: React.FC = () => {
   const [gameOver, setGameOver] = useState(true);
   //User answer input
   const [userAnswer, setUserAnswer] = useState("");
-
-  const [incorrectAnswer, setIncorrectAnswer] = useState(false);
+  const [answerStatus, setAnswerStatus] = useState("");
 
   const startTrivia = async () => {
     questionNumber.current += 1;
@@ -30,7 +29,7 @@ const App: React.FC = () => {
     setQuestions(newQuestions);
     setLoading(false);
     setUserAnswer("");
-    setIncorrectAnswer(false);
+    setAnswerStatus("");
   };
 
   const checkAnswer = () => {
@@ -39,9 +38,16 @@ const App: React.FC = () => {
       userAnswer.toLowerCase().replace(/[^A-Za-z0-9]/g, "")
     ) {
       score.current += 1;
-      startTrivia();
+      setAnswerStatus("Correct");
+      setTimeout(function () {
+        setAnswerStatus("");
+        startTrivia();
+      }, 2000);
     } else {
-      setIncorrectAnswer(true);
+      setAnswerStatus("Incorrect");
+      setTimeout(function () {
+        setAnswerStatus("");
+      }, 5000);
     }
   };
   const skipAnswer = () => {
@@ -75,7 +81,7 @@ const App: React.FC = () => {
             submit={checkAnswer}
             skip={skipAnswer}
             stop={stopQuiz}
-            incorrectAnswer={incorrectAnswer}
+            answerStatus={answerStatus}
             onInputChange={(userAnswer) => setUserAnswer(userAnswer)}
           />
         )}

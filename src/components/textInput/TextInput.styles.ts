@@ -1,12 +1,17 @@
 import styled from "styled-components";
 
 type InputWrapperProps = {
-  error: boolean;
+  answerStatus: string;
 };
 
 export const InputWrapper = styled.div<InputWrapperProps>`
   input {
-    border: ${({ error }) => (error ? "0.5px solid red" : " 0.5px solid grey")};
+    border: ${({ answerStatus }) =>
+      answerStatus === "Correct"
+        ? "0.5px solid green"
+        : answerStatus === "Incorrect"
+        ? "0.5px solid red"
+        : " 0.5px solid grey"};
     border-radius: 5px;
     overflow: hidden;
     width: 90%;
@@ -14,5 +19,9 @@ export const InputWrapper = styled.div<InputWrapperProps>`
     padding: 5px;
     margin: 30px 0px;
     outline: none;
+  }
+  span {
+    color: ${({ answerStatus }) =>
+      answerStatus === "Correct" ? "green" : "red"};
   }
 `;

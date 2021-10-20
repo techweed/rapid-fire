@@ -7,7 +7,7 @@ import iconSkip from "../../assets/icons/skip.svg";
 
 type Props = {
   question: string;
-  incorrectAnswer: boolean;
+  answerStatus: string;
   submit: () => void;
   skip: () => void;
   stop: () => void;
@@ -18,7 +18,7 @@ type Props = {
 
 const Card: React.FC<Props> = ({
   question,
-  incorrectAnswer,
+  answerStatus,
   submit,
   skip,
   stop,
@@ -32,7 +32,7 @@ const Card: React.FC<Props> = ({
       <p dangerouslySetInnerHTML={{ __html: question }} />
       <TextInput
         value={userAnswer}
-        error={incorrectAnswer}
+        answerStatus={answerStatus}
         placeholder="Enter your answer"
         onChange={onInputChange}
       />
@@ -41,6 +41,7 @@ const Card: React.FC<Props> = ({
         name="submit"
         icon={null}
         click={submit}
+        // validation
         disabled={userAnswer.trim().length === 0}
         className=""
       />
