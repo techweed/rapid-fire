@@ -7,6 +7,7 @@ type ButtonWrapperProps = {
 
 export const ButtonWrapper = styled.div<ButtonWrapperProps>`
   transition: all 0.3s ease;
+  z-index: 1;
   :hover {
     opacity: 0.8;
   }
@@ -18,6 +19,7 @@ export const ButtonWrapper = styled.div<ButtonWrapperProps>`
     width: auto;
     height: 55px;
     margin: 5px 0;
+    z-index: 1;
     background: ${({ disabled }) =>
       !disabled ? "linear-gradient(90deg, #56FFA4, #59BC86)" : " grey"};
     border: 3px solid #ffffff;
