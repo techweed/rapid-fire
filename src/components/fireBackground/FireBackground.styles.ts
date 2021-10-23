@@ -22,7 +22,6 @@ export const FireWrapper = styled.div<FireWrapperProps>`
     position: absolute;
     top: 80%;
     left: 50%;
-    transform: translate(-50%, -80%);
     overflow: hidden;
     width: 40px;
     height: 40px;

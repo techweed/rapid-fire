@@ -8,17 +8,17 @@ type ButtonWrapperProps = {
 export const ButtonWrapper = styled.div<ButtonWrapperProps>`
   transition: all 0.3s ease;
   z-index: 1;
-  :hover {
-    opacity: 0.8;
-  }
+
   button {
+    :hover {
+      opacity: 1;
+    }
     cursor: pointer;
     user-select: none;
     font-size: 1rem;
     font-family: "Press Start 2p", cursive;
     width: auto;
     height: 55px;
-    margin: 5px 0;
     z-index: 1;
     background: ${({ disabled }) =>
       !disabled ? "linear-gradient(90deg, #56FFA4, #59BC86)" : " grey"};
@@ -57,8 +57,9 @@ export const ButtonWrapper = styled.div<ButtonWrapperProps>`
     background: rgba(245, 180, 30, 1);
   }
   .centerButton {
+    opacity: 0.5;
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
