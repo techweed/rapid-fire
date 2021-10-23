@@ -1,9 +1,17 @@
 import React, { useEffect } from "react";
 import { FireWrapper } from "./FireBackground.styles";
 
-type Props = { showColor: boolean; flameColor: Array<any> };
+type Props = {
+  showColor: boolean;
+  flameColor: Array<any>;
+  onFlameColorChange: any;
+};
 
-const FireBackground: React.FC<Props> = ({ showColor, flameColor }) => {
+const FireBackground: React.FC<Props> = ({
+  showColor,
+  flameColor,
+  onFlameColorChange,
+}) => {
   let canvas: any;
   let ctx: any;
   let config: any = {
@@ -163,6 +171,15 @@ const FireBackground: React.FC<Props> = ({ showColor, flameColor }) => {
   return (
     <FireWrapper>
       <div className="padded">
+        {showColor && (
+          <input
+            type="color"
+            id="favcolor"
+            name="favcolor"
+            value={flameColor[0]}
+            onChange={onFlameColorChange}
+          />
+        )}
         <canvas id="canvas"></canvas>
       </div>
     </FireWrapper>

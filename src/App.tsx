@@ -7,6 +7,7 @@ import FireBackground from "./components/fireBackground/FireBackground";
 import iconDark from "./assets/icons/dark.svg";
 import iconLight from "./assets/icons/light.svg";
 import useLongPress from "./utils/useLongPress";
+import Respart from "./components/responsiveParticles/Respart";
 
 export type QuestionObject = {
   answer: string;
@@ -26,6 +27,7 @@ const App: React.FC = () => {
   const [answerStatus, setAnswerStatus] = useState("");
   const [darkMode, setDarkMode] = useState(false);
   const [showColor, setShowColor] = useState(false);
+  const [showBtn, setShowBtn] = useState(true);
   const [flameColor, setFlameColor] = useState(["#55b900", 85, 185, 0]);
 
   //initialize states and fetching question
@@ -82,16 +84,11 @@ const App: React.FC = () => {
   const onLongPress = () => {
     setShowColor(!showColor);
   };
-
-  const defaultOptions = {
-    shouldPreventDefault: true,
-    delay: 500,
+  const onLongPress2 = () => {
+    setShowBtn(!showBtn);
   };
-  const longPressEvent = useLongPress(
-    onLongPress,
-    toggleDarkMode,
-    defaultOptions
-  );
+  const longPressEvent = useLongPress(onLongPress2, toggleDarkMode);
+  const longPressEvent2 = useLongPress(onLongPress, null);
 
   return (
     <>
@@ -104,29 +101,32 @@ const App: React.FC = () => {
             src={darkMode ? iconLight : iconDark}
             alt={"dark"}
           />
-          RAPID FIRE {!gameOver && questionNumber.current}
+          {(showBtn || !gameOver) && (
+            <span {...longPressEvent2}>RAPID FIRE</span>
+          )}
+
+          {!gameOver && " " + questionNumber.current}
         </h1>
         {gameOver ? (
           <>
-            <Button
-              content="Start"
-              name="start"
-              icon={null}
-              click={startTrivia}
-              disabled={false}
-              className="centerButton"
-            />
-            {showColor && (
-              <input
-                type="color"
-                id="favcolor"
-                name="favcolor"
-                value={flameColor[0]}
-                onChange={onFlameColorChange}
+            {showBtn ? (
+              <Button
+                content="Start"
+                name="start"
+                icon={null}
+                click={startTrivia}
+                disabled={false}
+                className="centerButton"
               />
+            ) : (
+              <Respart />
             )}
 
-            <FireBackground showColor={showColor} flameColor={flameColor} />
+            <FireBackground
+              showColor={showColor}
+              flameColor={flameColor}
+              onFlameColorChange={onFlameColorChange}
+            />
           </>
         ) : null}
         {loading ? <p>Loading Questions...</p> : null}

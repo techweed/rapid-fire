@@ -5,7 +5,7 @@ type Props = {
   content: string;
   name: string;
   icon: any;
-  click: () => void;
+  click: any;
   disabled: boolean;
   className: string;
 };
