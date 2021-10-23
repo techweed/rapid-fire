@@ -1,8 +1,6 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-type GlobalProps = {
-  darkMode: boolean;
-};
+type GlobalProps = {};
 
 export const GlobalStyle = createGlobalStyle<GlobalProps>`
   html {
@@ -14,7 +12,6 @@ export const GlobalStyle = createGlobalStyle<GlobalProps>`
     padding: 0px;
     font-family: 'Catamaran', sans-serif;
     box-sizing: border-box;
-    background-color: ${({ darkMode }) => (darkMode ? "black" : "white")};
 
   }
 `;
