@@ -3,10 +3,6 @@ import { fetchQuizQuestions } from "./services/https";
 import Card from "./components/card/Card";
 import { GlobalStyle, Wrapper } from "./App.styles";
 import Button from "./components/button/Button";
-import FireBackground from "./components/fireBackground/FireBackground";
-import iconDark from "./assets/icons/dark.svg";
-import iconLight from "./assets/icons/light.svg";
-import useLongPress from "./utils/useLongPress";
 
 export type QuestionObject = {
   answer: string;
@@ -24,9 +20,6 @@ const App: React.FC = () => {
   //User answer input
   const [userAnswer, setUserAnswer] = useState("");
   const [answerStatus, setAnswerStatus] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
-  const [showColor, setShowColor] = useState(false);
-  const [flameColor, setFlameColor] = useState(["#55b900", 85, 185, 0]);
 
   //initialize states and fetching question
   const startTrivia = async () => {
@@ -67,45 +60,12 @@ const App: React.FC = () => {
   const stopQuiz = () => {
     setGameOver(true);
   };
-  const onFlameColorChange = (e: any) => {
-    const color = e.target.value;
-    const r = parseInt(color.substr(1, 2), 16);
-    const g = parseInt(color.substr(3, 2), 16);
-    const b = parseInt(color.substr(5, 2), 16);
-    let newFlameColor = [e.target.value, r, g, b];
-    console.log(`red: ${r}, green: ${g}, blue: ${b}`);
-    setFlameColor(newFlameColor);
-  };
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-  const onLongPress = () => {
-    setShowColor(!showColor);
-  };
-
-  const defaultOptions = {
-    shouldPreventDefault: true,
-    delay: 500,
-  };
-  const longPressEvent = useLongPress(
-    onLongPress,
-    toggleDarkMode,
-    defaultOptions
-  );
 
   return (
     <>
-      <GlobalStyle darkMode={darkMode} />
+      <GlobalStyle />
       <Wrapper>
-        <h1>
-          <img
-            {...longPressEvent}
-            className="icon"
-            src={darkMode ? iconLight : iconDark}
-            alt={"dark"}
-          />
-          RAPID FIRE {!gameOver && questionNumber.current}
-        </h1>
+        <h1>RAPID FIRE {!gameOver && questionNumber.current}</h1>
         {gameOver ? (
           <>
             <Button
@@ -116,17 +76,6 @@ const App: React.FC = () => {
               disabled={false}
               className="centerButton"
             />
-            {showColor && (
-              <input
-                type="color"
-                id="favcolor"
-                name="favcolor"
-                value={flameColor[0]}
-                onChange={onFlameColorChange}
-              />
-            )}
-
-            <FireBackground showColor={showColor} flameColor={flameColor} />
           </>
         ) : null}
         {loading ? <p>Loading Questions...</p> : null}
