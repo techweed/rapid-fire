@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import "./Respart.css";
 
-const Respart = () => {
+type Props = {};
+
+const Respart: React.FC<Props> = () => {
   useEffect(() => {
-    var canvas = document.querySelector("#scene"),
-      ctx = canvas.getContext("2d"),
-      particles = [],
+    var canvas: any = document.querySelector("#scene"),
+      ctx: any = canvas.getContext("2d"),
+      particles: any = [],
       amount = 0,
       mouse = { x: 0, y: 0 },
       radius = 1;
@@ -19,7 +21,7 @@ const Respart = () => {
     var ww = (canvas.width = window.innerWidth);
     var wh = (canvas.height = window.innerHeight);
 
-    function Particle(x, y) {
+    function Particle(this: any, x: number, y: number) {
       this.x = Math.random() * ww;
       this.y = Math.random() * wh;
       this.dest = {
@@ -64,19 +66,19 @@ const Respart = () => {
       }
     };
 
-    function onMouseMove(e) {
+    function onMouseMove(e: any) {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     }
 
-    function onTouchMove(e) {
+    function onTouchMove(e: any) {
       if (e.touches.length > 0) {
         mouse.x = e.touches[0].clientX;
         mouse.y = e.touches[0].clientY;
       }
     }
 
-    function onTouchEnd(e) {
+    function onTouchEnd(e: any) {
       mouse.x = -9999;
       mouse.y = -9999;
     }
@@ -100,7 +102,7 @@ const Respart = () => {
       for (var i = 0; i < ww; i += Math.round(ww / 150)) {
         for (var j = 0; j < wh; j += Math.round(ww / 150)) {
           if (data[(i + j * ww) * 4 + 3] > 150) {
-            particles.push(new Particle(i, j));
+            particles.push(new (Particle as any)(i, j));
           }
         }
       }
@@ -114,7 +116,7 @@ const Respart = () => {
       }
     }
 
-    function render(a) {
+    function render(a: any) {
       requestAnimationFrame(render);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (var i = 0; i < amount; i++) {
